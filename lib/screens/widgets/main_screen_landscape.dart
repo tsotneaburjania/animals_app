@@ -15,36 +15,35 @@ class MainScreenLandscape extends StatelessWidget {
         Flexible(
           flex: 1,
           child: ListView(
-            children: [Column(
-              children: [
-                Consumer<AnimalChangeNotifier>(
-                    builder: (context, animal, child){
+            children: [
+              Column(
+                children: [
+                  Consumer<AnimalChangeNotifier>(
+                      builder: (context, animal, child) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(animal.animalModel.imageUrl,
+                          width: 300, height: 200),
+                    );
+                  }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Consumer<AnimalChangeNotifier>(
+                        builder: (context, animal, child) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.network(animal.animalModel.imageUrl, width: 300, height: 200),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(animal.animalModel.description),
+                        ),
                       );
-                    }
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Consumer<AnimalChangeNotifier>(
-                      builder: (context, animal, child){
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(animal.animalModel.description),
-                          ),
-                        );
-                      }
+                    }),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
             ],
           ),
         ),
-
         Flexible(
           flex: 1,
           child: Column(
@@ -59,14 +58,18 @@ class MainScreenLandscape extends StatelessWidget {
                       width: (MediaQuery.of(context).size.width / 2) * 0.4,
                       height: 60,
                       child: TextButton(
-                        onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.pigImgLink, Constants.pigName, Constants.pigDesc)),
+                        onPressed: () => context
+                            .read<AnimalChangeNotifier>()
+                            .setAnimal(AnimalModel(Constants.pigImgLink,
+                                Constants.pigName, Constants.pigDesc)),
                         child: const Text('pig'),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
                           // fixedSize: MaterialStateProperty.all<Size>(Size.square())
                         ),
-
                       ),
                     ),
                     SizedBox(
@@ -79,15 +82,21 @@ class MainScreenLandscape extends StatelessWidget {
                         //     animalDesc = Constants.kmdLizard;
                         //   });
                         // },
-                        onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.kmdLizardImgLink, Constants.kmdLizardName, Constants.kmdLizardDesc)),
+                        onPressed: () => context
+                            .read<AnimalChangeNotifier>()
+                            .setAnimal(AnimalModel(
+                                Constants.kmdLizardImgLink,
+                                Constants.kmdLizardName,
+                                Constants.kmdLizardDesc)),
                         child: const Text('Komodo Lizard'),
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -104,13 +113,17 @@ class MainScreenLandscape extends StatelessWidget {
                       //     animalDesc = Constants.penguin;
                       //   });
                       // },
-                      onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.penguinImgLink, Constants.penguinName, Constants.penguinDesc)),
+                      onPressed: () => context
+                          .read<AnimalChangeNotifier>()
+                          .setAnimal(AnimalModel(Constants.penguinImgLink,
+                              Constants.penguinName, Constants.penguinDesc)),
                       child: const Text('Penguin'),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
                       ),
-
                     ),
                   ),
                   SizedBox(
@@ -123,25 +136,26 @@ class MainScreenLandscape extends StatelessWidget {
                       //     animalDesc = Constants.bison;
                       //   });
                       // },
-                      onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.bisonLink, Constants.bisonName, Constants.bisonDesc)),
+                      onPressed: () => context
+                          .read<AnimalChangeNotifier>()
+                          .setAnimal(AnimalModel(Constants.bisonLink,
+                              Constants.bisonName, Constants.bisonDesc)),
                       child: const Text('Bison'),
                       style: ButtonStyle(
                         // minimumSize: MaterialStateProperty.all<Size>(Size(150, 36)),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
                       ),
                     ),
                   ),
-
                 ],
               )
             ],
           ),
         ),
-
       ],
     );
   }
-
 }
-
