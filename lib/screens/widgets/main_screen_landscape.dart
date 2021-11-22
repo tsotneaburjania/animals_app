@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_ground/screens/data/constants.dart';
+import 'package:flutter_test_ground/logic/animal_change_notifier.dart';
+import 'package:flutter_test_ground/data/animal_model.dart';
+import 'package:flutter_test_ground/data/constants.dart';
+import 'package:provider/provider.dart';
 
-class MainScreenLandscape extends StatefulWidget {
+class MainScreenLandscape extends StatelessWidget {
   const MainScreenLandscape({Key? key}) : super(key: key);
-
-  @override
-  _MainScreenLandscapeState createState() => _MainScreenLandscapeState();
-}
-
-class _MainScreenLandscapeState extends State<MainScreenLandscape> {
-  String animal = 'pig';
-  String animalDesc = Constants.pig;
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +17,28 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
           child: ListView(
             children: [Column(
               children: [
-                if (animal == 'pig')
-                  Image.network(Constants.pigImgLink, width: 300, height: 200),
-                if (animal == 'kom')
-                  Image.network(Constants.kmdLizardImgLink, width: 300, height: 200),
-                if (animal == 'pen')
-                  Image.network(Constants.penguinImgLink, width: 300, height: 200),
-                if (animal == 'bis')
-                  Image.network(Constants.bisonPenguinLink, width: 300, height: 200),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(animalDesc),
-                    ),
+                Consumer<AnimalChangeNotifier>(
+                    builder: (context, animal, child){
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(animal.animalModel.imageUrl, width: 300, height: 200),
+                      );
+                    }
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Consumer<AnimalChangeNotifier>(
+                      builder: (context, animal, child){
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(animal.animalModel.description),
+                          ),
+                        );
+                      }
                   ),
+                ),
               ],
             ),
             ],
@@ -57,12 +59,7 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
                       width: (MediaQuery.of(context).size.width / 2) * 0.4,
                       height: 60,
                       child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            animal = 'pig';
-                            animalDesc = Constants.pig;
-                          });
-                        },
+                        onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.pigImgLink, Constants.pigName, Constants.pigDesc)),
                         child: const Text('pig'),
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -76,12 +73,13 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
                       width: (MediaQuery.of(context).size.width / 2) * 0.4,
                       height: 60,
                       child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            animal = 'kom';
-                            animalDesc = Constants.kmdLizard;
-                          });
-                        },
+                        // onPressed: () {
+                        //   setState(() {
+                        //     animal = 'kom';
+                        //     animalDesc = Constants.kmdLizard;
+                        //   });
+                        // },
+                        onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.kmdLizardImgLink, Constants.kmdLizardName, Constants.kmdLizardDesc)),
                         child: const Text('Komodo Lizard'),
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -100,12 +98,13 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
                     width: (MediaQuery.of(context).size.width / 2) * 0.4,
                     height: 60,
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          animal = 'pen';
-                          animalDesc = Constants.penguin;
-                        });
-                      },
+                      // onPressed: () {
+                      //   setState(() {
+                      //     animal = 'pen';
+                      //     animalDesc = Constants.penguin;
+                      //   });
+                      // },
+                      onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.penguinImgLink, Constants.penguinName, Constants.penguinDesc)),
                       child: const Text('Penguin'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -118,12 +117,13 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
                     width: (MediaQuery.of(context).size.width / 2) * 0.4,
                     height: 60,
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          animal = 'bis';
-                          animalDesc = Constants.bison;
-                        });
-                      },
+                      // onPressed: () {
+                      //   setState(() {
+                      //     animal = 'bis';
+                      //     animalDesc = Constants.bison;
+                      //   });
+                      // },
+                      onPressed: () => context.read<AnimalChangeNotifier>().setAnimal(AnimalModel(Constants.bisonLink, Constants.bisonName, Constants.bisonDesc)),
                       child: const Text('Bison'),
                       style: ButtonStyle(
                         // minimumSize: MaterialStateProperty.all<Size>(Size(150, 36)),
@@ -142,4 +142,6 @@ class _MainScreenLandscapeState extends State<MainScreenLandscape> {
       ],
     );
   }
+
 }
+

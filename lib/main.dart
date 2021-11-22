@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_ground/logic/animal_change_notifier.dart';
 import 'package:flutter_test_ground/screens/widgets/main_screen_landscape.dart';
 import 'package:flutter_test_ground/screens/widgets/main_screen_portrait.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const ImageChangerApp());
+  runApp(
+      ChangeNotifierProvider(
+        create: (context) => AnimalChangeNotifier(),
+        child: const ImageChangerApp(),
+      )
+  );
 }
 
 class ImageChangerApp extends StatelessWidget {
